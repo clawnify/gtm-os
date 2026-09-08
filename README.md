@@ -101,11 +101,9 @@ git clone --recurse-submodules https://github.com/clawnify/gtm-os.git
 
 Install reads `clawnify.json`, not these folders: the platform deploys each
 member at its own verified commit. The submodule pin is provenance and a
-local checkout. When a member is re-verified, bump it here:
-
-```bash
-git submodule update --remote apps/open-crm && git commit -am "open-crm: <sha>"
-```
+local checkout. A weekly workflow (`.github/workflows/sync-member-pins.yml`)
+moves each pin to the member's current verified commit; run it from the
+Actions tab to sync sooner.
 
 Changes to a member go upstream to its repo, never into this one. If you fork
 this bundle to use it as your own org workspace (where apps are vendored and
