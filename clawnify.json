@@ -43,7 +43,20 @@
       {
         "name": "SDR",
         "role": "Outbound research and queue",
-        "path": "agents/sdr"
+        "path": "agents/sdr",
+        "required": true
+      },
+      {
+        "name": "Signal",
+        "role": "Watches for buying signals and opens Prospector runs",
+        "path": "agents/signal",
+        "required": false
+      },
+      {
+        "name": "Analyst",
+        "role": "Weekly outcomes review; proposes what to keep and kill",
+        "path": "agents/analyst",
+        "required": false
       }
     ],
     "getting_started": "docs/GETTING-STARTED.md"

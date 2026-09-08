@@ -1,0 +1,9 @@
+node_modules
+.clawnify
+.env*
+!.env.example
+.dev.vars
+# Runtime state is never shipped with the agent
+memories/
+sessions/
+logs/

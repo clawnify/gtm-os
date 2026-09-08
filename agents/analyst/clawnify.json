@@ -1,0 +1,7 @@
+{
+  "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
+  "version": 1,
+  "name": "Analyst",
+  "description": "Optional GTM OS agent. Once a week reads Dialer outcomes, Desk decisions and CRM stage moves, and deposits a short report in Desk: what booked, what got rejected, what to keep and what to kill.",
+  "agent": { "harness": "openclaw" }
+}

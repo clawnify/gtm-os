@@ -45,6 +45,14 @@ loop in one workspace with one agent working across it.
 | **Newsletter** | Marketing | Issue composer with AI drafts, audiences with double opt-in, send log |
 | **Desk** | Whoever approves | One-draft-at-a-time review session, history with rejection reasons |
 | **SDR agent** | Everyone, via chat | Sources, files, drafts, builds the call queue. Never sends, never calls |
+| **Signal agent** (optional) | Sales | Watches job boards and news for your ICP's buying signals, opens a Prospector run per signal |
+| **Analyst agent** (optional) | Founder | Weekly review of outcomes as a Desk draft: what booked, what got rejected, keep and kill |
+
+## One agent on every plan, more when you grow
+
+The SDR is required and is hired at install; it works on the smallest paid
+plan. Signal and Analyst are optional: they show up in your sidebar as "not
+hired yet" and hiring them is one click once your plan has room.
 
 ## Who it's for
 

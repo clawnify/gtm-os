@@ -1,0 +1,7 @@
+{
+  "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
+  "version": 1,
+  "name": "Signal",
+  "description": "Optional GTM OS agent. Watches job boards, funding news and company sites for the ICP's buying signals and opens a Prospector run for each fresh one, so the SDR sources heat instead of lists.",
+  "agent": { "harness": "openclaw" }
+}
