@@ -2,7 +2,7 @@
 
 **Prospect, call, nurture, approve. One install.**
 
-Five connected apps and one SDR agent for a small B2B team that sells with
+Four connected apps today (Desk joins when published) and one SDR agent for a small B2B team that sells with
 outbound. The agent finds heat and loads the queue. A person always sends the
 email and always makes the call.
 
@@ -96,7 +96,7 @@ org that already runs one of them reuses it.
 | Prospector | [clawnify/OpenProspector](https://github.com/clawnify/OpenProspector) | |
 | Dialer | [clawnify/OpenDialer](https://github.com/clawnify/OpenDialer) | `PROSPECTOR_APP_ID` → "Import from Prospector" |
 | Newsletter | [clawnify/OpenNewsletter](https://github.com/clawnify/OpenNewsletter) | `CRM_APP_ID` → "Import from CRM" |
-| Desk | clawnify/OpenDesk (not yet published) | |
+| Desk | clawnify/OpenDesk, joins the bundle once it is published | |
 | SDR, Signal, Analyst | this repo, `agents/` | SDR required; Signal and Analyst optional |
 
 ## License

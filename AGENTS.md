@@ -32,7 +32,6 @@ clawnify deploy --from clawnify/OpenCRM
 clawnify deploy --from clawnify/OpenProspector
 clawnify deploy --from clawnify/OpenDialer
 clawnify deploy --from clawnify/OpenNewsletter
-clawnify deploy --from clawnify/OpenDesk        # after it is published
 clawnify deploy agents/sdr                       # required
 clawnify deploy agents/signal agents/analyst     # optional, plan permitting
 ```
