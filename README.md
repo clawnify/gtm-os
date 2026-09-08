@@ -81,18 +81,23 @@ replace the samples with your own list.
 ## Install
 
 Click the button above, pick the workspace, answer four questions. Until
-bundle install ships, members deploy one at a time; see `AGENTS.md`.
+bundle install ships, members deploy one at a time from their own repos;
+see `AGENTS.md`.
 
 ## Members
 
-| Folder | Source | Pinned commit |
+Members are referenced by repo, never copied here. Each keeps its own button,
+its own verification pin, and its own update path; installing GTM OS into an
+org that already runs one of them reuses it.
+
+| Member | Repo | Wired at install |
 |---|---|---|
-| `apps/open-crm` | [clawnify/OpenCRM](https://github.com/clawnify/OpenCRM) | `ff00f14` |
-| `apps/open-prospector` | [clawnify/OpenProspector](https://github.com/clawnify/OpenProspector) | `31389a5` |
-| `apps/open-dialer` | [clawnify/OpenDialer](https://github.com/clawnify/OpenDialer) | `c9670c0` |
-| `apps/open-newsletter` | [clawnify/OpenNewsletter](https://github.com/clawnify/OpenNewsletter) | `c0ec6b4` |
-| `apps/open-desk` | not yet published | local |
-| `agents/sdr` | this repo | |
+| CRM | [clawnify/OpenCRM](https://github.com/clawnify/OpenCRM) | |
+| Prospector | [clawnify/OpenProspector](https://github.com/clawnify/OpenProspector) | |
+| Dialer | [clawnify/OpenDialer](https://github.com/clawnify/OpenDialer) | `PROSPECTOR_APP_ID` → "Import from Prospector" |
+| Newsletter | [clawnify/OpenNewsletter](https://github.com/clawnify/OpenNewsletter) | `CRM_APP_ID` → "Import from CRM" |
+| Desk | clawnify/OpenDesk (not yet published) | |
+| SDR, Signal, Analyst | this repo, `agents/` | SDR required; Signal and Analyst optional |
 
 ## License
 

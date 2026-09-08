@@ -18,25 +18,31 @@
   "bundle": {
     "apps": [
       {
-        "path": "apps/open-crm"
+        "repo": "clawnify/OpenCRM"
       },
       {
-        "path": "apps/open-prospector",
+        "repo": "clawnify/OpenProspector"
+      },
+      {
+        "repo": "clawnify/OpenDialer",
         "env": {
-          "CRM_APP_ID": {
-            "fromMember": "apps/open-crm",
+          "PROSPECTOR_APP_ID": {
+            "fromMember": "clawnify/OpenProspector",
             "property": "app_id"
           }
         }
       },
       {
-        "path": "apps/open-dialer"
+        "repo": "clawnify/OpenNewsletter",
+        "env": {
+          "CRM_APP_ID": {
+            "fromMember": "clawnify/OpenCRM",
+            "property": "app_id"
+          }
+        }
       },
       {
-        "path": "apps/open-newsletter"
-      },
-      {
-        "path": "apps/open-desk"
+        "repo": "clawnify/OpenDesk"
       }
     ],
     "agents": [

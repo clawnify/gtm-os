@@ -22,7 +22,7 @@ colors:
   # ── Lines ──
   border: "#E2E8F0"           # hairlines, card outlines, zone dividers
   ring: "#2563EB"             # focus ring — the ONLY blue in the chrome
-  link: "#2563EB"             # inline text links (same blue as ring)
+  link: "#1A202C"             # inline text links — INK, never blue; the underline is the affordance
   # ── Brand action (primary = Clawnify coral, shared with the dashboard) ──
   primary: "#DD5164"          # the single coral CTA per screen — same hue as the dashboard
   primary-hover: "#C53A4E"    # darkens on hover (never lightens)
@@ -45,7 +45,7 @@ colors:
   faint-dark: "#6E7681"
   border-dark: "#30363D"
   ring-dark: "#4493F8"
-  link-dark: "#4493F8"
+  link-dark: "#E6EDF3"        # ink on the dark canvas — still never blue
   primary-dark: "#DD5164"      # coral holds on the dark canvas (no inversion)
   primary-hover-dark: "#C53A4E"
   on-primary-dark: "#FFFFFF"
@@ -153,6 +153,7 @@ spacing:
   zone-padding: 1.25rem  # 20px — horizontal+vertical padding inside a card zone
   container-max: 75rem   # 1200px
   sidebar-width: 16.25rem # 260px
+  header-height: 3.5rem  # 56px — sidebar brand row AND page toolbar; their bottom borders must form one line
   button-height: 2rem    # 32px / h-8 — the compact desktop button height
   tap-target: 2.25rem    # 36px — input height / touch min (buttons run denser; see button-height)
   tap-target-agent: 2.5rem # 40px — interactive height in agent/touch mode (buttons grow to this)
@@ -211,7 +212,10 @@ components:
     textColor: "{colors.faint}"
     typography: "{typography.body-sm}"
   link:
-    textColor: "{colors.link}"
+    textColor: "{colors.link}"        # ink, not blue
+    textDecoration: underline
+    textDecorationColor: "{colors.border}"
+    textUnderlineOffset: 0.125rem
   card:
     backgroundColor: "{colors.surface}"
     border: "1px solid {colors.border}"
@@ -330,7 +334,7 @@ This is the single highest-leverage move. Generic AI UIs ship one `<h3>` and a w
 
 Everything else in the chrome stays **monochrome**. The coral is rationed to that one solid CTA — the only other coral on screen is the soft 12% tint marking the **active sidebar item** (a location indicator, not an action). Color elsewhere is reserved for:
 
-- **Blue (`ring`/`link`)** — focus rings and inline text links. Never buttons, never fills.
+- **Blue (`ring`)** — focus rings **only**. Never buttons, never fills, and **never links**.
 - **Status tones** — `success`/`warning`/`danger`, tinted badges and validation only.
 
 So the rule isn't "no color in the chrome" — it's **one colored action, monochrome everything else, and color otherwise belongs to the data** (status badges, category pills, charts). Secondary and ghost actions stay neutral; a screen with two coral buttons has none. That discipline — a single brand CTA against an otherwise gray-white, ink-text interface — is what keeps a coral-buttoned app reading as a serious tool rather than a vibe-coded gradient demo.
@@ -363,7 +367,8 @@ Neutral-dominant; the full palette ships in light and dark (`*-dark` applies und
 - **`faint` (#94A3B8):** placeholders, disabled states, decorative icons. Never for text that must be read.
 - **`border` (#E2E8F0):** the workhorse — card outlines, zone dividers, table separators, input borders.
 - **`primary` (#DD5164) / `primary-hover` (#C53A4E):** Clawnify coral — the single brand CTA per screen, shared with the dashboard. Darkens on hover. The default; overridable per app.
-- **`ring` / `link` (#2563EB):** the only chromatic blue, confined to focus indication and inline links — never a button.
+- **`ring` (#2563EB):** the only chromatic blue in the entire interface, confined to focus indication — never a button, never a link.
+- **`link` (#1A202C = `foreground`):** inline links are **ink, never blue**. A blue link is the web's default, not a decision, and it drags a second accent hue into a palette that has exactly one. The **underline is the affordance** — set it in `border` so it reads as a hairline, not a highlight, and darken it to `foreground` on hover. Colour stays reserved for the one coral action, status, and data.
 - **Status triplets:** each of `success`/`warning`/`danger` has a text tone and a `*-tint` background, both with dark variants. Tints exist **so components never hardcode a hex** — `button-danger-hover` and the badges reference them.
 
 ## Typography
@@ -385,6 +390,38 @@ Standard chrome:
 - **Toolbar** — sticky top bar, page title (`heading-1`) left, actions right, `border` underneath.
 - **Sidebar** — `surface`, `border` on the right edge, nav groups separated by hairline dividers with a muted Title-case group label per section. Rows (`sidebar-item`) are **foreground** text with foreground icons — they read as primary, not muted. The **active row is a soft brand-coral (`primary`) tint pill** with primary-coral text and icon (`sidebar-item-active`) — the active nav state is the one place the brand color marks *location* rather than the single CTA action. Locked/disabled rows go `faint`.
 - **Cards** use `zone-padding` (20px) per zone so grouped content breathes; **table rows** stay tight (8–10px vertical). Cards relax; tables compress.
+
+### The header line must be continuous (strict)
+
+**The sidebar's brand row and the page toolbar share one fixed height (`header-height`, 3.5rem / 56px), so their bottom borders meet as a single unbroken rule across the full width of the app.** Set that height explicitly (`h-14`); never let either side be sized by its padding, because the toolbar's content changes — a page with a subtitle is taller than one without — and the line breaks the moment it does. This is the first thing the eye checks on a two-pane layout, and a 6px step reads as sloppiness no amount of polish elsewhere recovers.
+
+### Tables and lists sit on the page, not in a card
+
+**A primary data table or list is full-bleed: it goes directly on the canvas, not wrapped in a bordered `card`.** Its header row (`table-header`) and hairline row separators already give it all the structure it needs; a border drawn around it adds a second, redundant frame and shrinks the usable width of the one thing the page exists to show.
+
+Full-bleed means the **rules actually reach the edges of the content pane**, which does not happen for free — the page's own horizontal padding must be cancelled on the table wrapper, and the cell padding put back so the text stays aligned:
+
+```html
+<div class="p-6">                                  <!-- page padding -->
+  <span class="eyebrow">Matters · 12</span>        <!-- furniture: stays padded -->
+
+  <div class="-mx-6 overflow-x-auto">              <!-- cancel it for the table only -->
+    <table class="w-full">
+      <tr class="border-y border-border bg-sunken">
+        <th class="px-3 py-2.5 first:pl-6 last:pr-6">…</th>   <!-- text back in line -->
+```
+
+Three things follow, and all three are load-bearing:
+
+- **The hairlines and the header fill run edge to edge.** A table that is merely borderless but still inset is not full-bleed — the rule stops short of the edge and the page reads as a card with its border removed.
+- **Only the table bleeds.** Headings, counts, banners, back links and empty states keep the page padding. Content above and below the table must *not* touch the edges.
+- **The first cell's text lines up with the heading above it** (`first:pl-6`), so the eye reads one left margin, not two.
+
+List rows follow the same shape — `-mx-6` on the row container, `px-6` on each row.
+
+**Table and list pages also drop the 1200px cap** and run the full width; a grid the user must scroll horizontally should never be centred inside empty gutters.
+
+Cards remain right for *grouped* content: detail panes, forms, settings panels, summary/KPI blocks, and definition blocks. The test is whether the table **is** the page (full-bleed) or one element **on** it (card) — and once a table on one page bleeds, every list in the app follows, because a bordered list on the next screen reads as an inconsistency rather than a distinction.
 
 ## Elevation & Depth
 
@@ -438,6 +475,7 @@ Built on **shadcn/ui** primitives, restyled to these tokens. The shadcn defaults
 - **Chips vs badges** — see signature #4.
 - **Stats / KPIs** — `stat` value + fixed-height `stat-meta` line (signature #3).
 - **Empty states** — never a bare "No data." One line of explanation plus the primary action: "No invoices yet. Generate your first from a quote." **Render the empty state borderless** — quiet centered text + the one action floating in generous whitespace, *not* wrapped in a bordered/`card` box. An empty bordered box reads as a broken or unloaded component; the border only earns its place once there are rows to contain. Apply the border (and zone anatomy) to the *populated* list/table, and swap to plain centered space when the count is zero.
+- **Dialogs must survive being taller than the viewport (strict).** The single most common dialog bug: a `fixed inset-0` overlay with `items-center` hard-centers a tall dialog, clipping its top AND bottom with no way to scroll to either — the first field and the footer both vanish. The **overlay is the scroll container**: `overflow-y-auto` on the fixed overlay, an inner `flex min-h-full items-center justify-center p-4` wrapper, the dialog inside it. Short dialogs stay centered; a tall one starts at the top (first field always visible) and the overlay scrolls to the footer. Never cap a form dialog with `max-h` + inner scroll as the default (that hides the footer behind a second scrollbar), and never rely on the dialog fitting — a form grows the moment a field is added.
 - **Dialogs** — every dialog is the shadcn `Dialog` (Radix under the hood, portaled to `<body>`) and **always closes with a `DialogFooter`**: actions right-aligned, the single coral `button-primary` last, a **`DialogClose asChild`** secondary `Cancel` before it (so Esc, the X, and Cancel all resolve the same way). Wrap the body in a `<form>` with the primary as `type="submit"`, so Enter submits and the browser handles required-field focus. Group fields with `Field` / `FieldGroup` (label + control + help/error per field) rather than ad-hoc `<div>` stacks. Header is a `DialogTitle` (+ `DialogDescription` when the title alone isn't self-evident). Over a map or any high-`z-index` surface, the overlay/content sit above it (the chrome's stacking tops out at the map's controls). Canonical shape:
 
   ```tsx
@@ -506,6 +544,18 @@ Concretely, the non-negotiables for a minimal app:
 5. **The canvas/surface separation** — white `background` page, `surface` card set apart by its `border`. Never content floating directly on the canvas.
 6. **Both modes** — dark palette via `prefers-color-scheme`, agent mode via `data-agent`. These come free from the tokens and template; don't strip them "because it's simple."
 
+**Light is the default; dark is opt-in by system preference — and there is exactly one correct way to wire it in Tailwind v4.** Declare the light palette in a top-level `@theme`, then override the custom properties in a **plain `:root` rule** inside the media query:
+
+```css
+@theme { --color-background: #ffffff; /* …light… */ }
+
+@media (prefers-color-scheme: dark) {
+  :root { --color-background: #0d1117; /* …dark… */ }
+}
+```
+
+**Never nest `@theme` inside `@media`.** Tailwind v4 hoists and merges every `@theme` block and discards the surrounding media condition, so `@media (prefers-color-scheme: dark) { @theme { … } }` does not produce a conditional theme — the dark block simply wins outright and the app ships **dark for everyone**, light never rendering. It fails silently: the build succeeds and the CSS looks plausible. Verify by grepping the built CSS — the light value must appear *first* and `prefers-color-scheme` must still be present.
+
 If the brief is trivial, spend the saved effort on these six, not on inventing layout. A todo app with a labeled, counted, chip-annotated zone card reads as a tool; the same data in a centered max-w-md gradient card reads as a demo.
 
 ### Agent & human dual-mode
@@ -516,10 +566,13 @@ Every Clawnify app runs for two callers: a human in the dashboard and an agent d
 
 This is the platform default that ships inside `template-app-internal`. An individual app — or an agency white-labeling client work — overrides tokens here (swap the coral `primary` for the app's own brand color, the font, the radii) and every component reflows through the Tailwind utilities already in the markup. **No component file ever contains a raw hex code, font name, or fixed pixel value** — including tint backgrounds and active states; if a recipe needs a tone, it gets a token first. That rule is what makes one-file rebranding actually work.
 
+This file is a **default**, not a ceiling. It is injected per build and never saved into the app's source, so a customer brief that contradicts it costs nothing to honour — the next build re-injects the current platform defaults regardless. When an **Org brand** or **This app's brand** section is present, its brand decisions outrank everything below; see "Brand precedence" in `AGENTS.md`. What it may never override: the accessibility rules, and the no-raw-hex rule in the paragraph above.
+
 ## Do's and Don'ts
 
 - **Do** open every card zone, form group, and sidebar section with an `eyebrow`. **Don't** ship a padded blob with one heading.
-- **Do** keep the primary button coral (`primary`, the brand default) — exactly one per screen, hover darkens. **Don't** paint buttons blue (blue is links and focus only) or ship two coral buttons in one view.
+- **Do** keep the primary button `primary` — coral is the platform default, a brand brief may replace it — exactly one per screen, hover darkens. **Don't** hardcode a button colour, ship two primary buttons in one view, or use blue when no brief asked for it (absent a brief, blue is focus rings only).
+- **Do** set inline links in ink with an underline. **Don't** make a link blue *by default* — that is the web's default, not a decision, and it puts a second accent hue on a screen that allows one. A brand brief that specifies link colour overrides this.
 - **Do** show the active tab/segment as a raised white pill on a `surface-sunken` track. **Don't** fill the active tab with ink/`foreground` — a solid dark fill reads as an accent or CTA.
 - **Do** set numeric columns in tabular figures, right-aligned, with footer aggregates. **Don't** let digits jitter between rows.
 - **Do** give key numbers a fixed-height meta line (delta, comparison). **Don't** let state toggles shift layout.
@@ -527,8 +580,11 @@ This is the platform default that ships inside `template-app-internal`. An indiv
 - **Do** keep the page `background` **white** by default — override to a tinted/dark canvas only when the brief explicitly asks. **Don't** ship an off-white or gray canvas unprompted.
 - **Do** convey hierarchy with borders and tonal steps. **Don't** add shadows to resting cards or use colored/glowing shadows.
 - **Do** keep headings small (20px page title). **Don't** ship a 48px marketing hero inside an internal tool.
-- **Don't** use gradients anywhere — especially the purple/indigo gradient that flags AI-generated UI.
+- **Don't** use gradients unless a brand brief asks for them — especially never the purple/indigo gradient that flags AI-generated UI, which no brief licenses.
 - **Don't** use emoji as section headers or icons; use `lucide-react` line icons at 12–16px.
+- **Do** give the sidebar brand row and the page toolbar the same fixed `header-height` so their bottom borders form one continuous line. **Don't** height either from padding — a page without a subtitle will break the line.
+- **Do** put a primary table or list straight on the page, full width, with its rules reaching both edges (cancel the page padding on the table wrapper, restore it on the first/last cell). **Don't** wrap it in a bordered card, and don't leave it merely borderless-but-inset — a rule that stops short of the edge still reads as a card.
+- **Do** keep headings, counts, banners and empty states inside the page padding. **Don't** let the content above or below a full-bleed table touch the edges too.
 - **Do** write real empty states with a next action. **Don't** leave a bare "No data."
 - **Do** keep hover states one tonal step. **Don't** scale, glow, or color-shift on hover.
 - **Do** maintain WCAG AA (4.5:1 body text) — `muted` is tuned to pass even on `surface-sunken`. **Don't** use `faint` for anything that must be read.
