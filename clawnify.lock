@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "note": "Hand-written. The CLI does not read this file yet (see docs/internal/vertical-os-bundles.md in the platform repo, phase map). Each member is a vendored copy of the source at the recorded commit; re-vendor to update.",
+  "members": {
+    "apps/open-crm":        { "source": "https://github.com/clawnify/OpenCRM",        "ref": "main", "sha": "ff00f1401f9749d2004901cb1cf123415748c534", "verified_at": "2026-09-01T15:12:48Z" },
+    "apps/open-prospector": { "source": "https://github.com/clawnify/OpenProspector", "ref": "main", "sha": "31389a5257152d81ff26da8438e38b8039cf5efd", "verified_at": "2026-09-01T15:13:11Z" },
+    "apps/open-dialer":     { "source": "https://github.com/clawnify/OpenDialer",     "ref": "main", "sha": "c9670c026e541a6f4a71c385bbf7f561d89df324", "verified_at": "2026-09-02T17:53:43Z" },
+    "apps/open-newsletter": { "source": "https://github.com/clawnify/OpenNewsletter", "ref": "main", "sha": "c0ec6b449a00a8268cdb7b69a54a09ed30e2a9fa", "verified_at": "2026-09-01T15:13:47Z" },
+    "apps/open-desk":       { "source": null, "ref": null, "sha": "24bff9c", "verified_at": null,
+                              "note": "Copied from the local open-desk working folder. Not published to GitHub and not verified yet; publish and verify before this bundle ships." },
+    "agents/sdr":           { "source": null, "note": "Authored in this repo." }
+  }
+}

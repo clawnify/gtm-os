@@ -1,0 +1,86 @@
+{
+  "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
+  "version": 1,
+  "name": "GTM OS",
+  "description": "Prospect, call, nurture, approve. Five connected apps and one SDR agent that finds heat and loads the queue; a person always makes the call.",
+  "icon": "icon.svg",
+  "tags": [
+    "gtm",
+    "sales",
+    "outbound",
+    "crm",
+    "bundle"
+  ],
+  "category": "Sales",
+  "workspace": {
+    "org": null
+  },
+  "bundle": {
+    "apps": [
+      {
+        "path": "apps/open-crm"
+      },
+      {
+        "path": "apps/open-prospector",
+        "env": {
+          "CRM_APP_ID": {
+            "fromMember": "apps/open-crm",
+            "property": "app_id"
+          }
+        }
+      },
+      {
+        "path": "apps/open-dialer"
+      },
+      {
+        "path": "apps/open-newsletter"
+      },
+      {
+        "path": "apps/open-desk"
+      }
+    ],
+    "agents": [
+      {
+        "name": "SDR",
+        "role": "Outbound research and queue",
+        "path": "agents/sdr"
+      }
+    ],
+    "getting_started": "docs/GETTING-STARTED.md"
+  },
+  "deploy": {
+    "title": "Deploy GTM OS",
+    "subtitle": "A working outbound desk for one team: CRM, prospecting, calling, newsletter, approvals, and an SDR agent that prepares every touch.",
+    "prompts": [
+      {
+        "key": "company_name",
+        "label": "Company name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "what_you_sell",
+        "label": "What do you sell, and to whom?",
+        "type": "textarea",
+        "required": true,
+        "placeholder": "e.g. AI bookkeeping for Italian accounting firms with 5-50 staff"
+      },
+      {
+        "key": "primary_market",
+        "label": "Primary market",
+        "type": "select",
+        "options": [
+          "US",
+          "Europe",
+          "Both"
+        ]
+      },
+      {
+        "key": "pipeline_stages",
+        "label": "Deal stages",
+        "type": "text",
+        "placeholder": "Lead, Qualified, Demo booked, Proposal, Won, Lost"
+      }
+    ]
+  }
+}

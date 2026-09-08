@@ -1,0 +1,12 @@
+{
+  "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
+  "version": 1,
+  "name": "OpenDesk",
+  "icon": "icon.svg",
+  "description": "An approval desk for work written by AI agents. Agents deposit drafts — social posts, comments, articles — and a human clears the queue one keystroke at a time. Approved work is handed to whichever app publishes it.",
+  "app": {
+    "framework": "react+hono",
+    "database": true,
+    "storage": false
+  }
+}

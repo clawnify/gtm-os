@@ -1,0 +1,7 @@
+{
+  "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
+  "version": 1,
+  "name": "SDR",
+  "description": "Outbound research and queue agent for GTM OS. Sources leads, files them in the CRM, drafts every touch for approval, and builds the call queue. Never sends, never calls.",
+  "agent": { "harness": "openclaw" }
+}
