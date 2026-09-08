@@ -1,0 +1,12 @@
+[submodule "apps/open-crm"]
+	path = apps/open-crm
+	url = https://github.com/clawnify/OpenCRM.git
+[submodule "apps/open-prospector"]
+	path = apps/open-prospector
+	url = https://github.com/clawnify/OpenProspector.git
+[submodule "apps/open-dialer"]
+	path = apps/open-dialer
+	url = https://github.com/clawnify/OpenDialer.git
+[submodule "apps/open-newsletter"]
+	path = apps/open-newsletter
+	url = https://github.com/clawnify/OpenNewsletter.git

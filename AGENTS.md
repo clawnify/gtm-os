@@ -9,6 +9,9 @@ Layout:
   by path with a `required` flag, `deploy.prompts`. `workspace.org` is `null`
   because this repo is a template; it is bound to an org at install.
 - `agents/<name>/` — the bundle's agents (AGENT.md, skills/, flows/).
+- `apps/<slug>/` — each member as a git submodule pinned at its verified
+  commit. Read-only here: install ignores these folders, and member changes
+  go upstream to the member repo.
 - `docs/` — the getting-started narrative.
 
 ## Editing rules

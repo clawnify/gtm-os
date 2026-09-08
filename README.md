@@ -80,15 +80,36 @@ replace the samples with your own list.
 
 ## Install
 
-Click the button above, pick the workspace, answer four questions. Until
-bundle install ships, members deploy one at a time from their own repos;
-see `AGENTS.md`.
+Click the button above, pick the workspace, answer four questions. Every
+member deploys (or is reused if the workspace already runs it), the SDR is
+hired and seeded from `agents/sdr`, and Signal and Analyst wait in the
+sidebar as optional hires.
 
 ## Members
 
 Members are referenced by repo, never copied here. Each keeps its own button,
 its own verification pin, and its own update path; installing GTM OS into an
 org that already runs one of them reuses it.
+
+`apps/<slug>/` holds each member as a **git submodule** pinned to the commit
+Clawnify verified, so one clone gives you the whole desk to read and run
+locally:
+
+```bash
+git clone --recurse-submodules https://github.com/clawnify/gtm-os.git
+```
+
+Install reads `clawnify.json`, not these folders: the platform deploys each
+member at its own verified commit. The submodule pin is provenance and a
+local checkout. When a member is re-verified, bump it here:
+
+```bash
+git submodule update --remote apps/open-crm && git commit -am "open-crm: <sha>"
+```
+
+Changes to a member go upstream to its repo, never into this one. If you fork
+this bundle to use it as your own org workspace (where apps are vendored and
+synced), replace the submodules with plain folders first.
 
 | Member | Repo | Wired at install |
 |---|---|---|
